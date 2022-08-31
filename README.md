@@ -10,7 +10,6 @@ Check our YouTube videos below for more details.
 | [![PaperVideo](https://img.youtube.com/vi/rIr-nX63dUA/0.jpg)](https://www.youtube.com/watch?v=rIr-nX63dUA) |
 
 
-
 ## Features
 
 
@@ -20,9 +19,7 @@ This implementation:
 
 ## Updates
 
-- 05/01/2021: Windows installation tutorial is added thanks to amazing [@carlosedubarreto](https://github.com/carlosedubarreto)
-- 06/10/2020: Support OneEuroFilter smoothing.
-- 14/09/2020: FBX/glTF conversion script is released.
+- Uploaded Demo Code.
 
 ## Getting Started
 VIBE has been implemented and tested on Ubuntu 18.04 with python >= 3.7. It supports both GPU and CPU inference.
