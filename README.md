@@ -30,7 +30,7 @@ If you don't have a suitable device, try running our Colab demo.
 
 Clone the repo:
 ```bash
-git clone https://github.com/athn-nik/TEACH.git
+git clone https://github.com/athn-nik/teach.git
 ```
 
 Install the requirements using `virtualenv` or `conda`:
