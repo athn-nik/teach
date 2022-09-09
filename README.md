@@ -13,9 +13,11 @@ Official PyTorch implementation of the paper "TEACH: Temporal Action Composition
 Check our YouTube videos below for more details.
 
 ### Video 
-
+<p float="center">
+  
 [![PaperVideo](https://img.youtube.com/vi/rIr-nX63dUA/0.jpg)](https://www.youtube.com/watch?v=rIr-nX63dUA) 
 
+</p>
 
 ## Features
 
