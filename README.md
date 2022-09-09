@@ -6,7 +6,7 @@ Official PyTorch implementation of the paper "TEACH: Temporal Action Composition
 
 <p float="center">
   <img src="assets/action2.gif" width="49%" />
-  <img src="assets/action1.gif" width="49%" />
+  <img src="assets/action3.gif" width="49%" />
 </p>
 
 
