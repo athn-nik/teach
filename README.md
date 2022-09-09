@@ -2,10 +2,14 @@
 Official PyTorch implementation of the paper "TEACH: Temporal Action Compositions for 3D Humans" 
 # TEACH: Temporal Action Compositions for 3D Humans [3DV-2022]
 [![report](https://img.shields.io/badge/arxiv-report-red)](https://arxiv.org/abs/1912.05656) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1dFfwxZ52MN86FA6uFNypMEdFShd2euQA) [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/vibe-video-inference-for-human-body-pose-and/3d-human-pose-estimation-on-3dpw)](https://paperswithcode.com/sota/3d-human-pose-estimation-on-3dpw?p=vibe-video-inference-for-human-body-pose-and)
+
+
 <p float="center">
   <img src="assets/action2.gif" width="49%" />
   <img src="assets/action1.gif" width="49%" />
 </p>
+
+
 Check our YouTube videos below for more details.
 
 | Paper Video                                                                                                | Qualitative Results                                                                                                |
