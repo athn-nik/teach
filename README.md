@@ -92,10 +92,8 @@ evaluate a pretrained model.
 ## License
 This code is available for **non-commercial scientific research purposes** as defined in the [LICENSE file](LICENSE). By downloading and using this code you agree to the terms in the [LICENSE](LICENSE). Third-party datasets and software are subject to their respective licenses.
 
-
 ## References
-We indicate if a function or script is borrowed externally inside each file. Here are some great resources we 
+Many part of this code were based on the official implementation of [TEMOS](https://github.com/Mathux/TEMOS). Here are some great resources we 
 benefit:
 
-- Pretrained HMR and some functions are borrowed from [SPIN](https://github.com/Mathux/TEMOS).
 - SMPL models and layer is from [SMPL-X model](https://github.com/vchoutas/smplx).
