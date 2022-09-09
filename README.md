@@ -1,7 +1,14 @@
 # TEACH
 Official PyTorch implementation of the paper "TEACH: Temporal Action Compositions for 3D Humans" 
 # TEACH: Temporal Action Compositions for 3D Humans [3DV-2022]
-[![report](https://img.shields.io/badge/arxiv-report-red)](https://arxiv.org/abs/1912.05656) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1dFfwxZ52MN86FA6uFNypMEdFShd2euQA) [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/vibe-video-inference-for-human-body-pose-and/3d-human-pose-estimation-on-3dpw)](https://paperswithcode.com/sota/3d-human-pose-estimation-on-3dpw?p=vibe-video-inference-for-human-body-pose-and)
+[![report](https://img.shields.io/badge/arxiv-report-red)](https://arxiv.org/abs/1912.05656) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1dFfwxZ52MN86FA6uFNypMEdFShd2euQA)
+
+
+<p float="center">
+  <img src="assets/action2.gif" width="49%" />
+  <img src="assets/action1.gif" width="49%" />
+</p>
+
 
 Check our YouTube videos below for more details.
 
@@ -92,10 +99,16 @@ evaluate a pretrained model.
 ## License
 This code is available for **non-commercial scientific research purposes** as defined in the [LICENSE file](LICENSE). By downloading and using this code you agree to the terms in the [LICENSE](LICENSE). Third-party datasets and software are subject to their respective licenses.
 
+## Acknowledgments
+We thank [Benjamin Pellkofer](https://is.mpg.de/person/bpellkofer) for his IT support.
 
 ## References
-We indicate if a function or script is borrowed externally inside each file. Here are some great resources we 
+Many part of this code were based on the official implementation of [TEMOS](https://github.com/Mathux/TEMOS). Here are some great resources we 
 benefit:
 
-- Pretrained HMR and some functions are borrowed from [SPIN](https://github.com/Mathux/TEMOS).
 - SMPL models and layer is from [SMPL-X model](https://github.com/vchoutas/smplx).
+## Contact
+
+This code repository was implemented mainly by [Nikos Athanasiou](https://is.mpg.de/~nathanasiou) with the help of [Mathis Petrovich](https://mathis.petrovich.fr/).
+
+For commercial licensing (and all related questions for business applications), please contact ps-licensing@tue.mpg.de.
