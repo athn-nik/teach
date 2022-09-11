@@ -1,6 +1,3 @@
-
-# Oracle experiment
-# /is/cluster/work/nathanasiou/experiments/temos-original/samples 
 hydra:
   run:
     dir: .

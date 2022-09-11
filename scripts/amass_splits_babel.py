@@ -7,15 +7,14 @@ sys.path.append('.')
 from loguru import logger
 from tqdm import tqdm
 import os
-amass_path = '/is/cluster/work/nathanasiou/data/motion-language/amass/processed_amass_smplh_male_30fps/amass.pth.tar'
+amass_path = 'path/toprocessed-amass-data/processed_amass_smplh_male_30fps/amass.pth.tar'
 amass_data = joblib.load(amass_path)    
 logger.info(f'Loading the dataset from {amass_path}')
-babel_path = '/is/cluster/work/nathanasiou/data/motion-language/babel/babel_v2.1/id2fname/amass-path2babel.json'
+babel_path = 'path/to/babel/data/id2fname/amass-path2babel.json'
 from teach.utils.file_io import read_json
 amass2babel = read_json(babel_path)
 dataset_db_lists = {'train': [],
-                    'val': [],
-                    'test': []}
+                    'val': []}
 num_bad = 0
 for sample in tqdm(amass_data):
     if sample['fname'] not in amass2babel:
@@ -32,7 +31,7 @@ for sample in tqdm(amass_data):
     dataset_db_lists[split_of_seq].append(sample_babel)
 
 print(f'Percentage not found: {num_bad}/{len(amass_data)}')
-out_path = '/is/cluster/work/nathanasiou/data/motion-language/babel/babel-smplh-30fps-male'
+out_path = 'output-path/babel-smplh-30fps-male'
 os.makedirs(out_path, exist_ok=True)
 for k, v in dataset_db_lists.items():
     joblib.dump(v, f'{out_path}/{k}.pth.tar')

@@ -1,10 +1,7 @@
-# TEACH
-
-## Official PyTorch implementation of the paper "TEACH: Temporal Action Compositions for 3D Humans" 
-
 # TEACH: Temporal Action Compositions for 3D Humans [3DV-2022]
 [![report](https://img.shields.io/badge/arxiv-report-red)](https://arxiv.org/abs/1912.05656)
 
+## Official PyTorch implementation of the paper "TEACH: Temporal Action Compositions for 3D Humans" 
 
 <p float="center">
   <img src="assets/action2.gif" width="49%" />
@@ -80,38 +77,41 @@ python interact_teach.py folder=/path/to/experiment output=/path/to/yourfname te
 Download the data from [AMASS website](amass.is.tue.mpg.de).
 
 ```shell
-python divotion/dataset/process_amass.py --input-path /your path --output-path /out/path --model-type smplh --use-betas
+python divotion/dataset/process_amass.py --input-path /path/to/data --output-path path/of/choice --model-type smplh --use-betas --gender male
 ```
 
 Download the data from [BABEL website](babel.is.tue.mpg.de)[GET IT FROM ME]:
+The run this script and change your paths accordingly inside it extract the different babel splits from amass:
 
 ```shell
-python divotion/dataset/add_babel_labels.py --input-path /is/cluster/nathanasiou/data/amass/processed_amass_smplh_wshape_30fps --out-path /is/cluster/nathanasiou/data/babel/babel-smplh30fps-gender --babel-path /is/cluster/nathanasiou/data/babel/babel_v2.1/
+python scripts/amass_splits_babel.py
 ```
 
-Softlink the data or copy them based on where you have them. You should have a data folder with the structure:
+Then create a directory named `data` and put the babel data and the processed amass data in.
+You should end up with a data folder with the structure like this:
+
 ```
+data
 |-- amass
-|   |-- processed_amass_smplh_wshape_30fps
+|  `-- your-processed-amass-data 
+|
 |-- babel
-|   |-- babel-smplh30fps-gender
-|   |-- babel_v2.1
+|   `-- babel_v2.1
 |-- smpl_models
-|   |-- markers_mosh
-|   |-- README.md
-|   |-- smpl
-|   |-- smplh
-|   `-- smplx
+|   `-- smpl
 ```
 
-Be careful not to push any data! To softlink your data, do:
+Be careful not to push any data! 
+Then you should softlink inside this repo. To softlink your data, do:
 
 `ln -s /path/to/data`
 
 ## Training
 To start training after activating your environment. Do:
 
-`python train.py experiment=baseline logger=none`
+```shell
+python train.py experiment=baseline logger=none
+```
 
 Explore `configs/train.yaml` to change some basic things like where you want
 your output stored, which data you want to choose if you want to do a small
@@ -156,9 +156,9 @@ python compute_td.py folder=/path/to/experiment align_full_bodies=false align_on
 ## Citation
 
 ```bibtex
-@inproceedings{athanasiou2022teach,
+@inproceedings{TEACH:3DV:2022,
   title={TEACH: Temporal Action Compositions for 3D Humans},
-  author={Athanasiou, Nikos and Petrovich, Mathis and Black, Michael J. and Varol, Gul},
+  author={Athanasiou, Nikos and Petrovich, Mathis and Black, Michael J. and Varol, G\"{u}l },
   booktitle = {International Conference on 3D Vision (3DV)},
   month = {September},
   year = {2022}
@@ -179,6 +179,6 @@ Many part of this code were based on the official implementation of [TEMOS](http
 
 This code repository was implemented mainly by [Nikos Athanasiou](https://is.mpg.de/~nathanasiou) with the help of [Mathis Petrovich](https://mathis.petrovich.fr/).
 
-Give a  ⭐  if you like.
+Give a ⭐  if you like.
 
 For commercial licensing (and all related questions for business applications), please contact ps-licensing@tue.mpg.de.
