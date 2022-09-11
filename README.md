@@ -118,6 +118,40 @@ your output stored, which data you want to choose if you want to do a small
 experiment on a subset of the data etc.
 [TODO]: More on this coming soon.
 
+### Sampling & Evaluation
+
+Here are some commands if you want to sample from the validaiton set and evaluate on the metrics reported
+in the paper:
+
+```shell 
+python sample_seq.py folder=/path/to/experiment align=full slerp_ws=8
+```
+
+In general the folder is: `folder_our/<project>/<dataname_config>/<experimet>/<run_id>`
+This folder should contain a `checkpoints` directory with a `last.ckpt` file inside and a `.hydra` directory from which the configuration
+will be pulled and the relevant checkpoint. This folder is created during training in the output directory and is provided in our website
+for the experiments in the paper.
+
+- `align=trans`: chooses if translation will be aligned or if the global orientation also(`align=full`)
+- `slerp_ws`: decides on whether slerp is done or not(`=null`) and what is the size of its window.
+
+Then for the evaluation you should do:
+
+```shell
+python eval.py folder=/path/to/experiment align=true slerp=true
+```
+
+the two extra parameters decide the samples on which the evaluation will be performed.
+
+### Transition distance
+
+- Without alignment column: ```shell 
+python compute_td.py folder=/path/to/experiment align_full_bodies=false align_only_trans=true```
+
+- With alignment column:
+```shell python compute_td.py folder=/path/to/experiment align_full_bodies=true align_only_trans=false```
+
+[TODO]: More on this coming soon.
 
 ## Citation
 
@@ -138,12 +172,13 @@ This code is available for **non-commercial scientific research purposes** as de
 We thank [Benjamin Pellkofer](https://is.mpg.de/person/bpellkofer) for his IT support.
 
 ## References
-Many part of this code were based on the official implementation of [TEMOS](https://github.com/Mathux/TEMOS). Here are some great resources we 
-benefit:
+Many part of this code were based on the official implementation of [TEMOS](https://github.com/Mathux/TEMOS). Here are some great resources we benefit:
 
 - SMPL models and layer is from [SMPL-X model](https://github.com/vchoutas/smplx).
 ## Contact
 
 This code repository was implemented mainly by [Nikos Athanasiou](https://is.mpg.de/~nathanasiou) with the help of [Mathis Petrovich](https://mathis.petrovich.fr/).
+
+Give a  ⭐  if you like.
 
 For commercial licensing (and all related questions for business applications), please contact ps-licensing@tue.mpg.de.
