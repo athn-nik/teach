@@ -3,21 +3,22 @@
 ## Official PyTorch implementation of the paper "TEACH: Temporal Action Compositions for 3D Humans" 
 
 # TEACH: Temporal Action Compositions for 3D Humans [3DV-2022]
-[![report](https://img.shields.io/badge/arxiv-report-red)](https://arxiv.org/abs/1912.05656) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1dFfwxZ52MN86FA6uFNypMEdFShd2euQA)
+[![report](https://img.shields.io/badge/arxiv-report-red)](https://arxiv.org/abs/1912.05656)
 
 
 <p float="center">
   <img src="assets/action2.gif" width="49%" />
-  <img src="assets/action1.gif" width="49%" />
+  <img src="assets/action3.gif" width="49%" />
 </p>
 
 
 Check our YouTube videos below for more details.
 
+### Video 
+
 <!-- | Paper Video                                                                                                | Qualitative Results                                                                                                |
 |------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
 | [![PaperVideo](https://img.youtube.com/vi/rIr-nX63dUA/0.jpg)](https://www.youtube.com/watch?v=rIr-nX63dUA) | -->
-
 
 ## Features
 
@@ -105,7 +106,7 @@ Softlink the data or copy them based on where you have them. You should have a d
 
 Be careful not to push any data! To softlink your data, do:
 
-`ln -s /is/cluster/nathanasiou/data`
+`ln -s /path/to/data`
 
 ## Training
 To start training after activating your environment. Do:
@@ -117,21 +118,6 @@ your output stored, which data you want to choose if you want to do a small
 experiment on a subset of the data etc.
 [TODO]: More on this coming soon.
 
-## Training
-Run the commands below to start training:
-
-```shell script
-source scripts/prepare_training_data.sh
-python train.py --cfg configs/config.yaml
-```
-
-Note that the training datasets should be downloaded and prepared before running data processing script.
-Please see [`doc/train.md`](doc/train.md) for details on how to prepare them.
- 
-## Evaluation
-
-See [`doc/eval.md`](doc/eval.md) to reproduce the results in this table or 
-evaluate a pretrained model.
 
 ## Citation
 
