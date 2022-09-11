@@ -1,4 +1,5 @@
 # Repo specific Ignores
+teach-env/
 /data
 /outputs
 deps/*
@@ -8,8 +9,6 @@ deps/*
 /wandb
 *.err
 *.out
-/cluster_scripts
-/condor_logs
 lightning_logs
 
 # Byte-compiled / optimized / DLL files
