@@ -1,0 +1,11 @@
+name: server
+
+# specific attributes to this machine
+batch_size: 16
+smpl_batch_size: 16
+num_workers: 8
+
+# Specific attributes for training
+trainer:
+  gpus: 1
+  auto_select_gpus: true

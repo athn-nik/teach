@@ -1,0 +1,3 @@
+_target_: pytorch_lightning.callbacks.LearningRateMonitor
+# proper way to log LR but does not work with the custom logger thing ...
+logging_interval: epoch

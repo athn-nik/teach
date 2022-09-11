@@ -1,0 +1,6 @@
+defaults:
+  - /callback/last_checkpoint@latest_ckpt
+  - /callback/best_checkpoint@best_ckpt
+  - /callback/progress@progress
+  - /callback/render@render
+  - /callback/lr_logging@lr_logging

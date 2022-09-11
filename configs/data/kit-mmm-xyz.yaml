@@ -1,0 +1,29 @@
+dataname: kit-mmm-xyz
+_target_: teach.data.kit.KITDataModule
+
+# Paths
+datapath: ${path.data}/kit
+splitpath: ${path.data}/kit-splits
+
+# No Amass
+load_amass_data: false
+load_with_rot: false
+
+# Text
+load_actions: false
+load_canonicalized_text: false
+pick_one_text: true
+
+# Machine
+batch_size: ${machine.batch_size}
+num_workers: ${machine.num_workers}
+
+# Motion
+framerate: 12.5
+sampler: ${sampler}
+defaults:
+  - /transforms/xyz.yaml@transforms
+
+# Other
+tiny: false
+progress_bar: true

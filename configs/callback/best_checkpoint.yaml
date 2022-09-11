@@ -1,0 +1,7 @@
+_target_: pytorch_lightning.callbacks.ModelCheckpoint
+dirpath:  ${path.working_dir}/checkpoints
+filename: best
+monitor: "Metrics/APE_root"
+mode: min
+every_n_epochs: 1
+save_top_k: 1

@@ -1,0 +1,15 @@
+name: meta_actor_decoder
+_target_: teach.model.motiondecoder.MetaActorDecoder2
+
+latent_dim: ${model.latent_dim}
+
+ff_size: ${model.ff_size}
+num_layers: ${model.num_layers}
+num_head: ${model.num_head}
+droupout: ${model.droupout}
+activation: ${model.activation}
+
+mode: posencoding # last_frame, None
+prev_data_mode: "z1t" #, "hist_frame", None
+hist_frames: 1 # can be anything
+

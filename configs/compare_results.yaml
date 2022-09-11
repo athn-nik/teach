@@ -1,0 +1,35 @@
+hydra:
+  run:
+    dir: .
+  output_subdir: null
+
+seed: 1234
+
+logger_level: INFO
+folder: ???
+output_dir: ???
+split: val
+ckpt_name: last.ckpt
+last_ckpt_path: ${get_last_checkpoint:${folder},${ckpt_name}}
+
+naive: false
+jointstype: mmmns
+
+
+# Composing nested config with default
+defaults:
+  - data: babel-amass
+  - machine: server
+  - trainer: base
+  - sampler: all_conseq
+  - /path@path
+  - override hydra/job_logging: custom
+  - override hydra/hydra_logging: custom
+  - _self_
+
+transforms: ${data.transforms}
+
+
+machine:
+  batch_size: 16
+  smpl_batch_size: 128

@@ -1,0 +1,37 @@
+
+# Oracle experiment
+# /is/cluster/work/nathanasiou/experiments/temos-original/samples 
+hydra:
+  run:
+    dir: .
+  output_subdir: null
+
+folder: ???
+split: val
+
+mean: false
+number_of_samples: 1
+fact: 1
+eval_pairs: true
+
+slerp: true
+checkpoint: last
+align: true
+jointstype: mmmns
+naive: false
+logger_level: INFO
+
+defaults:
+  - data: null
+  - /path@path
+  - /transforms/rots2joints/smplh@rots2joints
+  - sampler: all_conseq
+  - override hydra/job_logging: console
+  - override hydra/hydra_logging: console
+  - _self_
+
+data:
+  mode: 'inference'
+
+machine:
+  smpl_batch_size: 256

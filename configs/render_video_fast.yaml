@@ -1,0 +1,16 @@
+hydra:
+  run:
+    dir: .
+  output_subdir: null
+
+mode: 'extract' # 'npy'
+files: ''
+folder: ''
+jointstype: 'vertices'
+slerp: true
+walk: true
+
+logger_level: INFO
+defaults:
+  - /path@path
+  - _self_

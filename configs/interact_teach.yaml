@@ -1,0 +1,38 @@
+hydra:
+  run:
+    dir: .
+  output_subdir: null
+
+seed: 1234
+
+folder: ???
+# the fps used during training
+texts: ???
+output: ???
+durs: 
+- 1
+- 1.5
+- 2
+- 3
+- 4
+- 5
+train_fps: 30
+last_ckpt_path: ${get_last_checkpoint:${folder}}
+samples: 1
+logger_level: INFO
+slerp_ws: 8
+
+# Composing nested config with default
+defaults:
+  - data: null
+  - machine: server
+  - trainer: null
+  - pose2joints: null
+  - sampler: all_conseq
+  - /path@path
+  - override hydra/job_logging: custom
+  - override hydra/hydra_logging: custom
+  - _self_
+
+
+data.batch_size: 1

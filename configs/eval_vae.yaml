@@ -1,0 +1,20 @@
+hydra:
+  run:
+    dir: .
+  output_subdir: null
+
+
+folder: ???
+splitset: ghosh
+samples_folder: ${get_samples_folder:${folder}}
+sample_mean: false
+number_of_samples: 1
+fact: 1
+
+logger_level: INFO
+
+defaults:
+  - /path@path
+  - override hydra/job_logging: console
+  - override hydra/hydra_logging: console
+  - _self_

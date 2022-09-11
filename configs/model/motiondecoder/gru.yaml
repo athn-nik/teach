@@ -1,0 +1,5 @@
+name: gru_decoder
+_target_: teach.model.motiondecoder.GRUDecoder
+
+latent_dim: ${model.latent_dim}
+num_layers: ${model.num_layers}

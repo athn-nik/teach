@@ -1,0 +1,40 @@
+hydra:
+  run:
+    dir: /is/cluster/work/nathanasiou/experiments/${project}/${data.dataname}/${experiment}/${run_id}
+  job:
+    # chdir: true
+    env_set:
+      WANDB_API_KEY: '90e13be46265667b13415a5e6d248ae91ab399fc'
+      PYOPENGL_PLATFORM: 'egl'
+    
+# Global configurations shared between different modules
+experiment: baseline
+# must be the same when you are resuming experiment
+project: teach
+seed: 42
+
+# For finetuning
+resume: null
+
+logger_level: INFO
+run_id: ${generate_id:}
+
+# Composing nested config with default
+defaults:
+  - data: babel-amass
+  - model: teach
+  - machine: server
+  - trainer: base
+  - sampler: variable_conseq # cut it
+  - logger: wandb
+  - callback: base
+  - /path@path
+  - override hydra/job_logging: custom
+  - override hydra/hydra_logging: custom
+  - _self_
+
+data:
+  transforms:
+    normalization: true
+
+transforms: ${data.transforms}

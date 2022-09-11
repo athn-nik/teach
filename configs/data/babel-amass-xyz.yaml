@@ -1,0 +1,31 @@
+dataname: babel-amass-xyz
+_target_: teach.data.babel.BABELDataModule
+
+# Paths
+dtype: '' # 'seg', 'seq', 'pairs'
+datapath: ${path.data}/babel/babel-smplh-30fps-male
+
+# Amass
+smplh_path: ${path.data}/smpl_models/smplh
+load_with_rot: false
+
+# Machine
+batch_size: ${machine.batch_size}
+num_workers: ${machine.num_workers}
+
+# Motion
+framerate: 30
+sampler: ${sampler}
+defaults:
+  - /transforms/xyz.yaml@transforms_xyz
+  - /transforms/smpl.yaml@transforms_smpl
+
+# Transformations
+transforms: ${.transforms_xyz}
+transforms_smpl:
+  rots2rfeats:
+    normalization: false
+
+# Other
+tiny: false
+progress_bar: true

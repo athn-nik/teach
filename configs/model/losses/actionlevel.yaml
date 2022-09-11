@@ -1,0 +1,33 @@
+_target_: teach.model.losses.ActionComputeLosses
+
+# Loss terms
+loss_recons: 1.0
+loss_latent: 1e-6
+loss_kl: 1e-6
+
+
+defaults:
+  - /model/losses/function/smoothL1@func_recons
+  - /model/losses/function/smoothL1@func_latent
+  - /model/losses/function/kl@func_kl
+  - /model/losses/function/klmulti@func_klmulti
+  - /model/losses/_base@_here_
+
+# Text => Motion
+recons_text2feats: ${model.losses.loss_recons}
+recons_text2feats_func: ${model.losses.func_recons}
+
+# Motion => Motion
+recons_feats2feats: ${model.losses.loss_recons}
+recons_feats2feats_func: ${model.losses.func_recons}
+
+# Latent space losses
+latent_manifold: ${model.losses.loss_latent}
+latent_manifold_func: ${model.losses.func_latent}
+
+# VAE losses
+kl_texts: ${model.losses.loss_kl}
+kl_texts_func: ${model.losses.func_klmulti}
+
+kl_motion: ${model.losses.loss_kl}
+kl_motion_func: ${model.losses.func_kl}

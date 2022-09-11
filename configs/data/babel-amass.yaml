@@ -1,0 +1,27 @@
+dataname: babel-amass
+_target_: teach.data.babel.BABELDataModule
+
+# Paths
+dtype: '' # 'seg', 'seq', 'pairs', 'pairs_only', 'separate_pairs'
+datapath: ${path.data}/babel/babel-smplh-30fps-male
+
+# Amass
+smplh_path: ${path.data}/smpl_models/smplh
+load_with_rot: true
+
+# Machine
+batch_size: ${machine.batch_size}
+num_workers: ${machine.num_workers}
+
+# Motion
+framerate: 30
+sampler: ${sampler}
+defaults:
+  - /transforms/ysmpl.yaml@transforms
+
+# Other
+tiny: false
+walk_only: false
+kit_only: false
+mode: 'train'
+progress_bar: true

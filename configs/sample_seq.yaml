@@ -1,0 +1,43 @@
+hydra:
+  run:
+    dir: .
+  output_subdir: null
+
+seed: 1234
+
+logger_level: INFO
+folder: ???
+
+split: val
+mean: false
+number_of_samples: 1
+fact: 1
+ckpt_name: last.ckpt
+last_ckpt_path: ${get_last_checkpoint:${folder},${ckpt_name}}
+
+set: null # seq / pairs / submission
+evaluate_pairs: true
+slerp_ws: 8
+align: 'full' # trans
+# mmm joints to account for correct canonicalization without scaling factor to convert smpl skeleton to KIT skeleton
+# llocations + z axes + scaling of skeleton
+jointstype: 'mmmns' # smplh / mmm
+naive: false
+# Composing nested config with default
+defaults:
+  - data: null
+  - machine: null
+  - trainer: null
+  - sampler: all_conseq
+  - /path@path
+  - override hydra/job_logging: custom
+  - override hydra/hydra_logging: custom
+  - _self_
+
+data:
+  mode: 'inference'
+
+
+machine:
+  batch_size: 16
+  smpl_batch_size: 128

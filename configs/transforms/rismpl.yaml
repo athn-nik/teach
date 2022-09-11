@@ -1,0 +1,17 @@
+name: SMPLTransform
+ename: smpl
+
+_target_: teach.transforms.SMPLTransform
+
+normalization: false
+
+defaults:
+  - rots2rfeats: rifeats
+  - rots2joints: smplh
+  - joints2jfeats: rifke
+
+rots2rfeats:
+  normalization: ${transforms.normalization}
+
+joints2jfeats:
+  normalization: ${transforms.normalization}

@@ -1,0 +1,4 @@
+modelname: dummy
+_target_: teach.model.dummy.Dummy
+
+translation: true

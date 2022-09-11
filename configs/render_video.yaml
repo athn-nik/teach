@@ -1,0 +1,16 @@
+hydra:
+  run:
+    dir: .
+  output_subdir: null
+
+folder: ???
+split: val
+fast: true
+high_res: false
+number_of_samples: 1
+canonicalize: true
+logger_level: INFO
+gt: false
+defaults:
+  - /path@path
+  - _self_

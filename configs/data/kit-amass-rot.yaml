@@ -1,0 +1,32 @@
+dataname: kit-amass-rot
+_target_: teach.data.kit.KITDataModule
+
+# Paths
+datapath: ${path.data}/kit
+splitpath: ${path.data}/kit-splits
+
+# Amass
+load_amass_data: true
+load_with_rot: true
+correspondance_path: ${path.data}/kitml_amass_path.json
+amass_path: ${path.data}/amass/amass_raw
+smplh_path: ${path.data}/smpl_models/smplh
+
+# Text
+load_actions: false
+load_canonicalized_text: false
+pick_one_text: true
+
+# Machine
+batch_size: ${machine.batch_size}
+num_workers: ${machine.num_workers}
+
+# Motion
+framerate: 12.5
+sampler: ${sampler}
+defaults:
+  - /transforms/smpl.yaml@transforms
+
+# Other
+tiny: false
+progress_bar: true

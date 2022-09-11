@@ -1,0 +1,28 @@
+modelname: temos
+_target_: teach.model.temos.TEMOS
+
+latent_dim: 256
+vae: true
+
+transforms: ${transforms}
+
+ff_size: 1024
+num_layers: 6
+num_head: ${model.num_layers}
+droupout: 0.1
+activation: "gelu"
+nvids_to_save: 5
+#${callback.render.nvids_to_save}
+lr_scheduler: null
+motion_branch: false
+
+
+defaults:
+  - textencoder: distilbert_transformer
+  - motionencoder: actor
+  - motiondecoder: actor
+  - losses: temos
+  - optim: adamw
+  - /model/losses/function/smoothL1@func_recons
+  - /model/losses/function/smoothL1@func_latent
+  - /model/losses/function/kl@func_kl

@@ -1,0 +1,38 @@
+hydra:
+  run:
+    dir: .
+  output_subdir: null
+
+seed: 1234
+
+logger_level: INFO
+folder: ???
+
+split: val
+ckpt_name: last.ckpt
+last_ckpt_path: ${get_last_checkpoint:${folder},${ckpt_name}}
+
+
+align_full_bodies: false
+align_only_trans: true
+slerp_window_size: null
+
+naive: false
+jointstype: mmmns
+
+
+# Composing nested config with default
+defaults:
+  - data: null
+  - machine: null
+  - trainer: null
+  - sampler: all_conseq
+  - /path@path
+  - override hydra/job_logging: custom
+  - override hydra/hydra_logging: custom
+  - _self_
+
+
+machine:
+  batch_size: 16
+  smpl_batch_size: 128

@@ -1,0 +1,35 @@
+hydra:
+  run:
+    dir: .
+  output_subdir: null
+
+npy: ???
+tmp_path: /tmp/
+
+logger_level: INFO
+
+quality: false
+cycle: ${quality}
+res: ${quality}
+
+# for video: 1/8 frame rendered
+downsample: true
+
+gt: false
+canonicalize: true
+exact_frame: 0.5
+num: 8
+
+always_on_floor: false
+fake_trans: false
+mode: sequence
+separate_actions: true
+text_vid: false
+renderer: blender
+
+defaults:
+  - /path@path
+  - _self_
+
+
+faces_path: ${path.deps}/smplh/smpl.faces

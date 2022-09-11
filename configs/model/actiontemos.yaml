@@ -1,0 +1,20 @@
+modelname: temos
+_target_: teach.model.actiontemos.ActionTEMOS
+
+latent_dim: 256
+vae: true
+
+pose2joints: ${pose2joints}
+
+ff_size: 1024
+num_layers: 4
+num_head: ${model.num_layers}
+droupout: 0.1
+activation: "gelu"
+
+defaults:
+  - textencoder: actionlevel
+  - motionencoder: actor
+  - motiondecoder: actionlevelactor
+  - losses: actionlevel
+  - optim: adamw

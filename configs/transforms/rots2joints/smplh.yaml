@@ -1,0 +1,10 @@
+name: SMPLH
+_target_: teach.transforms.rots2joints.SMPLH
+# Only to compute the metrics does not affect training
+jointstype: mmm
+input_pose_rep: matrix
+path: ${path.data}/smpl_models/smplh
+batch_size: ${machine.smpl_batch_size}
+# todo this has to be fixed, don't know yet how
+# https://github.com/vchoutas/smplx#smpl-and-smplh-setup
+gender: male

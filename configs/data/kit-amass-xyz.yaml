@@ -1,0 +1,35 @@
+dataname: kit-amass-xyz
+_target_: teach.data.kit.KITDataModule
+
+# Paths
+datapath: ${path.data}/kit
+splitpath: ${path.data}/kit-splits
+
+# Amass
+load_amass_data: true
+load_with_rot: false
+correspondance_path: ${path.data}/kitml_amass_path.json
+amass_path: ${path.data}/AMASS
+smplh_path: ${path.deps}/smplh
+
+# Text
+load_actions: false
+load_canonicalized_text: false
+pick_one_text: true
+
+# Machine
+batch_size: ${machine.batch_size}
+num_workers: ${machine.num_workers}
+
+# Motion
+framerate: 12.5
+sampler: ${sampler}
+defaults:
+  - /transforms/xyz.yaml@transforms_xyz
+  - /transforms/smpl.yaml@transforms_smpl
+
+transforms: ${.transforms_xyz}
+
+# Other
+tiny: false
+progress_bar: true

@@ -1,0 +1,12 @@
+logger_name: wandb
+version: ${run_id}
+
+save_dir: wandb
+project: teach
+tags: null
+notes: null
+
+offline: false
+resume: false
+save_code: false
+log_model: false

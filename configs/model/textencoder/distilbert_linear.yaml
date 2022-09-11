@@ -1,0 +1,8 @@
+name: distilbert_linear_encoder
+_target_: teach.model.textencoder.DistilbertEncoderLinear
+
+latent_dim: ${model.latent_dim}
+vae: ${model.vae}
+
+finetune: false
+modelpath: ${path.deps}/distilbert-base-uncased
