@@ -9,7 +9,7 @@
 </p>
 
 
-Check our YouTube videos below for more details.
+Check our YouTube video for a quick overview and our paper for more details.
 
 ### Video 
 
@@ -69,11 +69,12 @@ Then, running the demo is as simple as:
 
 ```bash
 
-# Run on your description
 python interact_teach.py folder=/path/to/experiment output=/path/to/yourfname texts='[text prompt1, text prompt2, text prompt3, <more prompts comma divided>]' durs='[dur1, dur2, dur3, ...]'
 
 ```
+
 ## Data
+
 Download the data from [AMASS website](amass.is.tue.mpg.de).
 
 ```shell
