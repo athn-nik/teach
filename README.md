@@ -1,5 +1,5 @@
 # TEACH: Temporal Action Compositions for 3D Humans [3DV-2022]
-[![report](https://img.shields.io/badge/arxiv-report-red)](https://arxiv.org/abs/1912.05656)
+[![report](https://img.shields.io/badge/arxiv-report-red)](https://arxiv.org/abs/2209.04066)
 
 ## Official PyTorch implementation of the paper "TEACH: Temporal Action Compositions for 3D Humans" 
 
@@ -9,13 +9,13 @@
 </p>
 
 
-Check our YouTube video for a quick overview and our paper for more details.
+Check our upcoming YouTube video for a quick overview and our paper for more details.
 
 ### Video 
 
 <!-- | Paper Video                                                                                                | Qualitative Results                                                                                                |
 |------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| [![PaperVideo](https://img.youtube.com/vi/rIr-nX63dUA/0.jpg)](https://www.youtube.com/watch?v=rIr-nX63dUA) | -->
+| [![PaperVideo](https://img.youtube.com/vi/vidid/0.jpg)](https://www.youtube.com/) | -->
 
 ## Features
 
@@ -81,7 +81,8 @@ Download the data from [AMASS website](amass.is.tue.mpg.de).
 python divotion/dataset/process_amass.py --input-path /path/to/data --output-path path/of/choice --model-type smplh --use-betas --gender male
 ```
 
-Download the data from [BABEL website](babel.is.tue.mpg.de)[GET IT FROM ME]:
+Download the data from [BABEL website](babel.is.tue.mpg.de). The data TEACH was trained was processed slighlty and will
+be made soon publicly available:
 The run this script and change your paths accordingly inside it extract the different babel splits from amass:
 
 ```shell
