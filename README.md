@@ -75,14 +75,15 @@ python interact_teach.py folder=/path/to/experiment output=/path/to/yourfname te
 
 ## Data
 
-Download the data from [AMASS website](amass.is.tue.mpg.de).
+Download the data from [AMASS website](https://amass.is.tue.mpg.de). Then, run this command to extract the amass sequences that are annotated in babel:
 
 ```shell
-python divotion/dataset/process_amass.py --input-path /path/to/data --output-path path/of/choice --model-type smplh --use-betas --gender male
+python scripts/process_amass.py --input-path /path/to/data --output-path path/of/choice/default_is_/babel/babel-smplh-30fps-male --model-type smplh --use-betas --gender male
 ```
 
-Download the data from [BABEL website](babel.is.tue.mpg.de). The data TEACH was trained was processed slighlty and will
-be made soon publicly available:
+Download the data from [TEACH website](https://teach.is.tue.mpg.de), after signing in. The data TEACH was trained was a processed version of BABEL. Hence, we provide them directly to your via our website, where you will also find more relevant details. 
+Finally, download the male SMPLH body model from the [SMPLX website](https://smpl-x.is.tue.mpg.de/) in pickle format.
+
 The run this script and change your paths accordingly inside it extract the different babel splits from amass:
 
 ```shell
@@ -98,9 +99,14 @@ data
 |  `-- your-processed-amass-data 
 |
 |-- babel
-|   `-- babel_v2.1
+|   `-- babel-teach
+|       `...
+|   `-- babel-smplh-30fps-male 
+|       `...
+|
 |-- smpl_models
-|   `-- smpl
+|   `-- smplh
+|       `--SMPLH_MALE.pkl
 ```
 
 Be careful not to push any data! 
