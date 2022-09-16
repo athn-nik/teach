@@ -153,11 +153,9 @@ the two extra parameters decide the samples on which the evaluation will be perf
 
 ### Transition distance
 
-- Without alignment column: ```shell 
-python compute_td.py folder=/path/to/experiment align_full_bodies=false align_only_trans=true```
+- Without alignment column: ```python compute_td.py folder=/path/to/experiment align_full_bodies=false align_only_trans=true```
 
-- With alignment column:
-```shell python compute_td.py folder=/path/to/experiment align_full_bodies=true align_only_trans=false```
+- With alignment column: ```python compute_td.py folder=/path/to/experiment align_full_bodies=true align_only_trans=false```
 
 [TODO]: More on this coming soon.
 
