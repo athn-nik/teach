@@ -1,13 +1,32 @@
-# TEACH: Temporal Action Compositions for 3D Humans [3DV-2022]
-[![report](https://img.shields.io/badge/arxiv-report-red)](https://arxiv.org/abs/2209.04066)
 
-## Official PyTorch implementation of the paper "TEACH: Temporal Action Compositions for 3D Humans" 
+<p align="center">
 
+  <h1 align="center">TEACH: Temporal Action Compositions for 3D Humans
+    <a href='https://arxiv.org/abs/2209.04066'>
+    <img src='https://img.shields.io/badge/arxiv-report-red' alt='ArXiv PDF'>
+    </a>
+    <a href='https://teach.is.tue.mpg.de/' style='padding-left: 0.5rem;'>
+    <img src='https://img.shields.io/badge/Project-Page-blue?style=flat&logo=Google%20chrome&logoColor=blue' alt='Project Page'>
+  </h1>
+  <p align="center">
+    <a href="https://ps.is.mpg.de/person/nathanasiou"><strong>Nikos Athanasiou</strong></a>
+    ·
+    <a href="https://mathis.petrovich.fr"><strong>Mathis Petrovich</strong></a>
+    ·
+    <a href="https://ps.is.tuebingen.mpg.de/person/black"><strong>Michael J. Black</strong></a>
+    ·
+    <a href="https://imagine.enpc.fr/~varolg"><strong>G&#252;l Varol</strong></a>
+  </p>
+  <h2 align="center">3DV 2022</h2>
+  <div align="center">
+  </div>
+</p>
 <p float="center">
   <img src="assets/action2.gif" width="49%" />
   <img src="assets/action3.gif" width="49%" />
 </p>
 
+## Official PyTorch implementation of the paper "TEACH: Temporal Action Compositions for 3D Humans" 
 
 Check our upcoming YouTube video for a quick overview and our paper for more details.
 
