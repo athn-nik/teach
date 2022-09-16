@@ -26,8 +26,6 @@
   <img src="assets/action3.gif" width="49%" />
 </p>
 
-## Official PyTorch implementation of the paper "TEACH: Temporal Action Compositions for 3D Humans" 
-
 Check our upcoming YouTube video for a quick overview and our paper for more details.
 
 ### Video 
