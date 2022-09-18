@@ -15,9 +15,9 @@ nvids_to_save: 5
 #${callback.render.nvids_to_save}
 lr_scheduler: null # reduceonplateau, steplr
 
-motion_branch: false
+motion_branch: true
 teacher_forcing: false
-hist_frames: 1
+hist_frames: 5
 z_prev_text: false
 
 defaults:
