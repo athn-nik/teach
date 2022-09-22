@@ -24,7 +24,6 @@ from teach.render import visualize_meshes, render_animation
 from teach.tools.easyconvert import matrix_to
 from teach.utils.file_io import read_json
 from hydra.utils import get_original_cwd
-labels_dict = read_json(f'{get_original_cwd()}/deps/inference/labels.json')
 
 logger = logging.getLogger(__name__)
 plt_logger = logging.getLogger("matplotlib.animation")
