@@ -63,16 +63,6 @@ class BaseModel(LightningModule):
         loss_dict = losses.compute(split)
         dico = {losses.loss2logname(loss, split): value.item()
                 for loss, value in loss_dict.items()}
-        if split == "val":
-            if getattr(self, "metrics_0", None):
-                metrics_dict_0 = self.metrics_0.compute()
-                metrics_dict_1 = self.metrics_1.compute()
-                metrics_dict = {}                
-                metrics_dict.update({key+"_0": val for key, val in metrics_dict_0.items()})
-                metrics_dict.update({key+"_1": val for key, val in metrics_dict_1.items()})
-            else:
-                metrics_dict = self.metrics.compute()
-            dico.update({f"Metrics/{metric}": value for metric, value in metrics_dict.items()})
         dico.update({"epoch": float(self.trainer.current_epoch),
                      "step": float(self.trainer.current_epoch)})
         # workaround for LR, assuming 1 optimizer, 1 scheduler, very weak

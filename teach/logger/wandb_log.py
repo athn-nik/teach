@@ -19,7 +19,6 @@ from pytorch_lightning.utilities import rank_zero_only
 from pytorch_lightning.loggers import WandbLogger as _pl_WandbLogger
 import os
 from pathlib import Path
-from pytorch_lightning.utilities.logger import _add_prefix
 import time
 
 # Fix the step logging

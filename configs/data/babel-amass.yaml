@@ -2,7 +2,7 @@ dataname: babel-amass
 _target_: teach.data.babel.BABELDataModule
 
 # Paths
-dtype: '' # 'seg', 'seq', 'pairs', 'pairs_only', 'separate_pairs'
+dtype: 'separate_pairs' # 'seg', 'seq', 'pairs', 'pairs_only', 'separate_pairs'
 datapath: ${path.data}/babel/babel-smplh-30fps-male
 
 # Amass

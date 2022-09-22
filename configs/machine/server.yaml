@@ -1,7 +1,7 @@
 name: server
 
 # specific attributes to this machine
-batch_size: 16
+batch_size: 8
 smpl_batch_size: 16
 num_workers: 8
 
