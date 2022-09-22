@@ -41,7 +41,7 @@ matplotlib-inline==0.1.3
 moviepy==1.0.3
 multidict==6.0.2
 networkx==2.7.1
-oauthlib==3.2.0
+oauthlib>=3.2.1
 omegaconf==2.1.1
 opencv-python==4.5.5.64
 packaging==21.3
