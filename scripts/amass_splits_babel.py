@@ -39,12 +39,13 @@ for sample in tqdm(amass_data):
 
     split_of_seq = amass2babel[sample['fname']]['split']
     babel_key = amass2babel[sample['fname']]['babel_id']
-    # construct babel key fro  amass keys and utils
-    sample_babel = {}
-    for k, v in sample.items():
-        sample_babel[k] = v
-    sample_babel['babel_id'] = babel_key
-    dataset_db_lists[split_of_seq].append(sample_babel)
+    if split_of_seq in ['train', 'val']:
+    	# construct babel key fro  amass keys and utils
+    	sample_babel = {}
+    	for k, v in sample.items():
+            sample_babel[k] = v
+    	sample_babel['babel_id'] = babel_key
+    	dataset_db_lists[split_of_seq].append(sample_babel)
 
 print(f'Percentage not found: {num_bad}/{len(amass_data)}')
 out_path = 'output-path/babel-smplh-30fps-male'
