@@ -80,7 +80,7 @@ You can do something equivalent with `conda` as well.
 ## Running the Demo
 
 We have prepared a nice demo code to run TEACH on arbitrary videos. 
-First, you need download the required data(i.e our trained model from our [website](teach.is.tue.mpg.de)). 
+First, you need download the required data(i.e our trained model from our [website](https://teach.is.tue.mpg.de)). 
 
 Then, running the demo is as simple as:
 
