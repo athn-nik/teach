@@ -2,13 +2,13 @@ version: 1
 
 filters:
   onlyimportant:
-    (): temos.tools.logging.LevelsFilter
+    (): teach.tools.logging.LevelsFilter
     levels:
     - CRITICAL
     - ERROR
     - WARNING
   noimportant:
-    (): temos.tools.logging.LevelsFilter
+    (): teach.tools.logging.LevelsFilter
     levels:
     - INFO
     - DEBUG
