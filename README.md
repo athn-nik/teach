@@ -73,7 +73,7 @@ cd ..
 Install the requirements using `virtualenv` :
 ```bash
 # pip
-source scripts/install_pip.sh
+source scripts/install.sh
 ```
 You can do something equivalent with `conda` as well.
 
