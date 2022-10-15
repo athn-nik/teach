@@ -26,7 +26,6 @@ import teach.launch.prepare
 from teach.render.mesh_viz import visualize_meshes
 from teach.render.video import save_video_samples, stack_vids
 import torch
-from teach.utils.inference import test_set_seqs_nowalk, test_set_seqs_walk
 from teach.utils.file_io import read_json
 labels = read_json('deps/inference/labels.json')
 
@@ -53,16 +52,12 @@ def cfg_mean_nsamples_resolution(cfg):
 
 def sample(newcfg: DictConfig) -> None:
     # Load last config
-
     output_dir = Path(hydra.utils.to_absolute_path(newcfg.folder))
     last_ckpt_path = newcfg.last_ckpt_path
-    # use this path for oracle experiment on kit-xyz
-    # '/is/cluster/work/nathanasiou/experiments/temos-original/last.ckpt'
+    
     # Load previous config
     prevcfg = OmegaConf.load(output_dir / ".hydra/config.yaml")
-    # use this path for oracle experiment on kit-xyz
-    # OmegaConf.load('/is/cluster/work/nathanasiou/experiments/temos-original/config.yaml')
-
+    
     # Overload it
     cfg = OmegaConf.merge(prevcfg, newcfg)
 
@@ -105,11 +100,7 @@ def sample(newcfg: DictConfig) -> None:
     logger.info("Loading data module")
     # only pair evaluation to be fair
     if cfg.data.dtype in ['pairs', 'pairs_only']:
-        # if cfg.evaluate_pairs:
-        #     cfg.data.dtype = 'separate_pairs'
-        # else:
         cfg.data.dtype = 'separate_pairs'
-
 
     # single motion model + slerp baseline
     if cfg.model.modelname == 'temos' and cfg.evaluate_pairs:
@@ -135,7 +126,6 @@ def sample(newcfg: DictConfig) -> None:
     else:
         dataset = getattr(data_module, f"{cfg.split}_dataset")
 
-    seqids = test_set_seqs_walk + test_set_seqs_nowalk
     from tqdm import tqdm
 
     logger.info("Loading model")
@@ -224,7 +214,6 @@ def sample(newcfg: DictConfig) -> None:
                     np.save(npypath, {'motion': motion.numpy(), 'text': cur_texts, 'lengths': cur_lens} )
 
     logger.info("All the sampling are done")
-
     logger.info(f"All the sampling are done. You can find them here:\n{path}")
 
 
