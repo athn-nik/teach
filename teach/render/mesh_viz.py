@@ -74,7 +74,7 @@ def visualize_meshes(vertices, pcd=None, multi_col=None,
             pcd = pcd.unsqueeze(0)
     mesh_rec = vertices
     smpl = get_body_model(path=f'{get_original_cwd()}/data/smpl_models',
-                          model_type='smpl', gender='neutral',
+                          model_type='smplh', gender='male',
                           batch_size=1, device='cpu')
     
     mv = MeshViewer(width=im_width, height=im_height,
