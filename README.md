@@ -73,14 +73,14 @@ cd ..
 Install the requirements using `virtualenv` :
 ```bash
 # pip
-source scripts/install_pip.sh
+source scripts/install.sh
 ```
 You can do something equivalent with `conda` as well.
 
 ## Running the Demo
 
 We have prepared a nice demo code to run TEACH on arbitrary videos. 
-First, you need download the required data(i.e our trained model from our [website](teach.is.tue.mpg.de)). 
+First, you need download the required data(i.e our trained model from our [website](https://teach.is.tue.mpg.de)). 
 
 Then, running the demo is as simple as:
 
@@ -95,7 +95,7 @@ python interact_teach.py folder=/path/to/experiment output=/path/to/yourfname te
 Download the data from [AMASS website](https://amass.is.tue.mpg.de). Then, run this command to extract the amass sequences that are annotated in babel:
 
 ```shell
-python scripts/process_amass.py --input-path /path/to/data --output-path path/of/choice/default_is_/babel/babel-smplh-30fps-male --model-type smplh --use-betas --gender male
+python scripts/process_amass.py --input-path /path/to/data --output-path path/of/choice/default_is_/babel/babel-smplh-30fps-male --use-betas --gender male
 ```
 
 Download the data from [TEACH website](https://teach.is.tue.mpg.de), after signing in. The data TEACH was trained was a processed version of BABEL. Hence, we provide them directly to your via our website, where you will also find more relevant details. 
