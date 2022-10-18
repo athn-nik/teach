@@ -154,17 +154,15 @@ def process_sequence(filename, use_betas,
     final_seq_data['fps'] = OUT_FPS
     final_seq_data['fname'] = f_id
     if gender != 'amass':
-        body_model_type = f'{body_model_type}_{gender}'
+        body_model_type = f'smplh_{gender}'
     if use_betas:
         final_seq_data['betas'] = amass_sequence_data['betas']
         body_params = param_dict_for_body_model(final_seq_data['poses'], 
                                                 final_seq_data['trans'],
-                                                betas=final_seq_data['betas'],
-                                                model_type=body_model_type)
+                                                betas=final_seq_data['betas'])
     else:
         body_params = param_dict_for_body_model(final_seq_data['poses'],
-                                                final_seq_data['trans'],
-                                                model_type=body_model_type)
+                                                final_seq_data['trans'])
     # must do SMPL forward pass to get joints
     # workaround to avoid running out of GPU
     body_joint_chunk = []
@@ -175,16 +173,16 @@ def process_sequence(filename, use_betas,
         body_params_temp = {}
         for k, v in body_params.items():
             body_params_temp[k] = v[sidx:eidx]
-        bodymodel_seq = get_body_model(gender_of_seq if gender=='amass' else gender,
+        bodymodel_seq = get_body_model('smplh', gender_of_seq if gender=='amass' else gender,
                                        eidx-sidx, device='cuda')
 
-        smplx_output = bodymodel_seq(return_verts=True, **body_params_temp)
+        smplh_output = bodymodel_seq(return_verts=True, **body_params_temp)
         # extract joints and markers
 
-        joints_temp = smplx_output.joints.detach().cpu().numpy()
+        joints_temp = smplh_output.joints.detach().cpu().numpy()
 
         if model_type == 'smpl':
-            joints_temp = smplx_output.joints[:, :22].detach().cpu().numpy()
+            joints_temp = smplh_output.joints[:, :22].detach().cpu().numpy()
 
 
         body_joint_chunk.append(joints_temp)

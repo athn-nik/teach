@@ -99,7 +99,7 @@ python scripts/process_amass.py --input-path /path/to/data --output-path path/of
 ```
 
 Download the data from [TEACH website](https://teach.is.tue.mpg.de), after signing in. The data TEACH was trained was a processed version of BABEL. Hence, we provide them directly to your via our website, where you will also find more relevant details. 
-Finally, download the male SMPLH body model from the [SMPLX website](https://smpl-x.is.tue.mpg.de/) in pickle format.
+Finally, download the male SMPLH male body model from the [SMPLX website](https://smpl-x.is.tue.mpg.de/). Specifically the AMASS version of the SMPLH model. Then, follow the instructions [here](https://github.com/vchoutas/smplx/blob/main/tools/README.md#smpl-h-version-used-in-amass) to extract the smplh model in pickle format.
 
 The run this script and change your paths accordingly inside it extract the different babel splits from amass:
 
