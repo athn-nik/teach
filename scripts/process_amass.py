@@ -250,9 +250,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
     input_dir = args.input_path
     output_dir = args.output_path
-    model_type = args.model_type
     use_betas = args.use_betas
     gender = args.gender
+    model_type = 'smplh'
 
     logger.info(f'Input arguments: \n {args}')
 
