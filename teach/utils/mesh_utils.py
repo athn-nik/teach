@@ -21,54 +21,83 @@ import sys
 import cv2
 from teach.utils.smpl_body_utils import colors
 
-def get_checkerboard_plane(scale, loc, plane_width=4, num_boxes=9, center=True):
-    
-    ground_color = colors['light_grey']
+def get_checkerboard_plane(plane_mins, center=True):
+    minx, maxx, miny, maxy = plane_mins
+    minz = 0
+    gray = [189, 195, 199, 255]
+    gray_l = [238, 238, 238, 150]
+
+    verts = [
+        [minx, miny, minz],
+        [minx, maxy, minz],
+        [maxx, maxy, minz],
+        [maxx, miny, minz]
+    ]
     meshes = []
-    
-    ground = trimesh.primitives.Box(center=loc, extents=scale)
+    radius = max((maxx - minx), (maxy - miny))
+
+    ground = trimesh.primitives.Box(
+        center=[(maxx-minx)/2,(maxx-minx)/2, 0.000001],
+        extents=[ maxx-minx, maxy-miny,  0.000002]
+    )
 
     # if center:
     #     c = c[0]+(pw/2)-(plane_width/2), c[1]+(pw/2)-(plane_width/2)
-    # # trans = trimesh.transformations.scale_and_translate(scale=1, translate=[c[0], c[1], 0])
-    ground.apply_translation([loc[0], loc[1], 0])
-    # # ground.apply_transform(trimesh.transformations.rotation_matrix(np.rad2deg(-120), direction=[1,0,0]))
-    # # ground.visual.face_colors = black if ((i+j) % 2) == 0 else white
-    ground.visual.face_colors = ground_color
+
+    # trans = trimesh.transformations.scale_and_translate(scale=1, translate=[c[0], c[1], 0])
+    # ground.apply_translation([c[0], c[1], 0])
+    # ground.apply_transform(trimesh.transformations.rotation_matrix(np.rad2deg(-120), direction=[1,0,0]))
+    ground.visual.face_colors = gray
     meshes.append(ground)
+
+    # G2
+    ground2 = trimesh.primitives.Box(
+        center=[(maxx-minx)/2, (maxy-miny)/2, 0.000001],
+        extents=[ maxx-minx + radius, maxy-miny + radius, 0.000002]
+    )
+    ground2.visual.face_colors = gray_l
+    meshes.append(ground2)
 
     return meshes
 
-
 class MeshViewer(object):
 
-    def __init__(self, width=1200, height=800, add_ground_plane=False, 
-                 ground_loc=None, ground_scale=None, use_offscreen=True,
+    def __init__(self, width=1200, height=800, add_ground_plane=False,
+                 plane_mins=None, use_offscreen=True,
                  bg_color='white'):
         super().__init__()
 
         self.use_offscreen = use_offscreen
         self.render_wireframe = False
-
+        assert add_ground_plane and plane_mins is not None
         self.mat_constructor = pyrender.MetallicRoughnessMaterial
         self.trimesh_to_pymesh = pyrender.Mesh.from_trimesh
 
-        self.scene = pyrender.Scene(bg_color=colors[bg_color],
-                                    ambient_light=(0.3, 0.3, 0.3))
+        self.scene = pyrender.Scene(bg_color=colors[bg_color],)
+                                    # ambient_light=(0.3, 0.3, 0.3))
 
         pc = pyrender.PerspectiveCamera(yfov=np.pi / 3.0, aspectRatio=float(width) / height)
         camera_pose = np.eye(4)
-        camera_pose[:3, 3] = np.array([0, 1.75, 3.25])
+
+        rotate=trimesh.transformations.rotation_matrix(np.radians(-30.0),
+                                                       [1,0,0])
+        camera_pose[:3, 3] = np.array([0, 2.5, 5])
+
+        camera_pose = np.dot(camera_pose, rotate)
+
+        # scene.set_pose(,np.dot(scene.get_pose(nl), rotate))
+
+        # camera_pose[:3, 3] = np.array([0, 0, 2.5])
+
         self.camera_node = self.scene.add(pc, pose=camera_pose, name='pc-camera')
 
         self.figsize = (width, height)
 
         if add_ground_plane:
-            ground_mesh = pyrender.Mesh.from_trimesh(get_checkerboard_plane(
-                                                     ground_scale, ground_loc),
+            ground_mesh = pyrender.Mesh.from_trimesh(get_checkerboard_plane(plane_mins),
                                                      smooth=False)
             pose = trimesh.transformations.rotation_matrix(np.radians(90), [1, 0, 0])
-            pose[:3, 3] = [0, -1, 0]
+            # pose[:3, 3] = [0, -1, 0]
             self.scene.add(ground_mesh, pose=pose, name='ground_plane')
 
         if self.use_offscreen:
@@ -89,10 +118,14 @@ class MeshViewer(object):
 
     def set_cam_trans(self, trans= [0, 0, 3.0]):
         if isinstance(trans, list): trans = np.array(trans)
-        trans[2] += 2.8
-        camera_pose = np.eye(4)
-        camera_pose[:3, 3] += trans
-        self.scene.set_pose(self.camera_node, pose=camera_pose)
+        # trans[2] += 2.8
+        self.camera_node.matrix[3, 0 ] += trans[0]
+        self.camera_node.matrix[3, 0 ] +=trans[2]
+
+        self.camera_node.translation[0] += trans[0]
+        self.camera_node.translation[2] += trans[2]
+        # camera_pose[:2, 3] += trans[:2] # translate the camera
+        self.scene.set_pose(self.camera_node, pose=self.camera_node.matrix)
 
     def set_meshes(self, meshes, group_name='static', poses=[]):
         for node in self.scene.get_nodes():
@@ -113,6 +146,7 @@ class MeshViewer(object):
                 if isinstance(mesh, trimesh.Trimesh):
                     mesh = pyrender.Mesh.from_trimesh(mesh)
                 self.scene.add(mesh, '%s-mesh-%2d'%(group_name, mid), pose)
+                self.set_cam_trans(trans=body_trans)
 
     def set_static_meshes(self, meshes, poses=[]): self.set_meshes(meshes, group_name='static', poses=poses)
     def set_dynamic_meshes(self, meshes, poses=[]): self.set_meshes(meshes, group_name='dynamic', poses=poses)
@@ -169,10 +203,3 @@ class MeshViewer(object):
 
         return color_img
 
-
-    def save_snapshot(self, fname):
-        if not self.use_offscreen:
-            sys.stderr.write('Currently saving snapshots only works with off-screen renderer!\n')
-            return
-        color_img = self.render()
-        cv2.imwrite(fname, color_img)

@@ -1,4 +1,4 @@
-_target_: teachg\.data.sampling.FrameSampler
+_target_: teach.data.sampling.FrameSampler
 
 # For fix size data
 request_frames: null
