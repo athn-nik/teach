@@ -64,7 +64,9 @@ def interact(newcfg: DictConfig) -> None:
     # Load the last checkpoint
     last_ckpt_path = output_dir / "checkpoints" / "last.ckpt"
     model = model.load_from_checkpoint(last_ckpt_path)
-    model.transforms.rots2joints.jointstype = "vertices"
+    output_type = cfg.repr_type
+    if output_type != 'smpl':
+        model.transforms.rots2joints.jointstype = output_type
 
     logger.info("Model weights restored")
 
@@ -81,13 +83,25 @@ def interact(newcfg: DictConfig) -> None:
             motion = model.forward_seq(texts, lengths,
                                        align_full_bodies=True,
                                        slerp_window_size=cfg.slerp_ws,
-                                       return_type="vertices")
+                                       return_type=output_type)
+            outd = Path(cfg.output).absolute()
 
-            np.save(f'{cfg.output}_sample-{index}.npy',
-                    {'motion': motion.numpy(), 'text': texts, 'lengths': lengths} )
+            if output_type == 'smpl':
+
+                np.save(f'{str(outd)}_sample-{index}.npy',
+                        {'vertices': motion['vertices'].numpy(),
+                         'rots': motion['rots'].numpy(),
+                         'transl': motion['transl'].numpy(),
+                         'text': texts,
+                         'lengths': lengths} 
+                        )
+                motion = motion['vertices'].numpy()
+            else:
+                np.save(f'{str(outd)}_sample-{index}.npy',
+                        {'motion': motion.numpy(), 'text': texts, 'lengths': lengths} )
 
             vid_ = visualize_meshes(motion.numpy())
-            save_video_samples(vid_, f'{cfg.output}_sample-{index}.mp4', texts, fps=30)
+            save_video_samples(vid_, f'{str(outd)}_sample-{index}.mp4', texts, fps=30)
 
 
 if __name__ == '__main__':

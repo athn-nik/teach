@@ -159,92 +159,18 @@ class TEACH(BaseModel):
 
             # Update end_first_motion
             end_first_motion += length
-
         from teach.transforms.smpl import RotTransDatastruct
         final_datastruct = self.Datastruct(rots_=RotTransDatastruct(rots=rots, trans=transl))
 
         if return_type == "vertices":
             return final_datastruct.vertices
+        elif return_type == "smpl":
+            return { 'rots': rots, 'transl': transl,
+                     'vertices': final_datastruct.vertices}
         elif return_type == "joints":
             return final_datastruct.joints
         else:
             raise NotImplementedError
-
-
-    def forward(self, batch: dict, return_rots: bool = False) -> List[Tensor]:
-        raise NotImplementedError
-        # TODO
-        # remove datastruct etc etc
-        # concatenate the output features: m0 and m1_trans => M
-        # transforms M => joints / or anything
-        #
-        length_0, length_1 = batch["length_0"], batch["length_1"]
-
-        length_transition = batch["length_transition"]
-        length_1_with_transition = batch["length_1_with_transition"]
-        # motion1_from_text = self.text_to_motion_forward(text_0, length_0, return_latent=True)
-
-        ### TEXT branches        
-        text_0, text_1 = batch["text_0"], batch["text_1"]
-        # breakpoint()
-        #### Encode the texts
-        latent_vector_0_T, _ = self.encode_data(text_0, return_latent=True)
-
-        #### Decode into motions
-        ## First motion pass
-        # Decode the latent vector to a motion
-        output_features_0_T = self.motiondecoder(latent_vector_0_T, lengths=length_0)
-        output_features_0_T_lst = [feats[:len0] for feats, len0 in zip(output_features_0_T, length_0)]
-
-        # hist_frames
-        if self.hist_frames > 0:
-            hist_frames_tensor = torch.stack([x[-self.hist_frames:] for x in output_features_0_T_lst])
-        else:
-            hist_frames_tensor = None
-
-        if self.previous_latent:
-            latent_vector_1_T, distribution_1_T = self.encode_data(text_1, hframes=hist_frames_tensor, z_previous=latent_vector_0_T, 
-                                                                   return_latent=True)
-        else:
-            latent_vector_1_T, distribution_1_T = self.encode_data(text_1, hframes=hist_frames_tensor, return_latent=True)
-
-        ## Second motion pass
-        # Decode the second latent vector to a motion
-        # by taking clues from the last motion            
-        output_features_1_T_with_transition = self.motiondecoder(latent_vector_1_T, lengths=length_1_with_transition)
-        
-        output_features_1_T_with_transition_lst = [feats[:(len1+trans_len)] for feats, trans_len, len1 in zip(output_features_1_T_with_transition, length_transition, length_1)]
-        full_mot_batch_T = [torch.cat((mot1, mot2)) for mot1, mot2 in zip(output_features_0_T_lst, output_features_1_T_with_transition_lst)]                    
-            
-        ### Motion branches     
-        if self.use_motion_encoder:   
-            motion_0, motion_1 = batch["motion_0"], batch["motion_1"]
-            
-            #### Encode the motions
-            latent_vector_0_M, _ = self.encode_data(motion_0, return_latent=True)
-
-            #### Decode into motions
-            ## First motion pass
-            # Decode the latent vector to a motion
-            output_features_0_M = self.motiondecoder(latent_vector_0_M, lengths=length_0)
-            output_features_0_M_lst = [feats[:len0] for feats, len0 in zip(output_features_0_M, length_0)]
-
-            # TODO: maybe also use the previous motion 
-            latent_vector_1_M, distribution_1_M = self.encode_data(motion_1, return_latent=True)
-            
-            output_features_1_M_with_transition = self.motiondecoder(latent_vector_1_M, lengths=length_1_with_transition)
-            
-            output_features_1_M_with_transition_lst = [feats[:(len1+trans_len)] for feats, trans_len, len1 in zip(output_features_1_M_with_transition, length_transition, length_1)]
-            full_mot_batch_M = [torch.cat((mot1, mot2)) for mot1, mot2 in zip(output_features_0_M_lst, output_features_1_M_with_transition_lst)]                    
-            
-                                
-        if return_rots:
-            full_mot = [self.Datastruct(features=motion).rots for motion in full_mot_batch]
-            return full_mot
-
-        full_mot = [self.Datastruct(features=motion).joints for motion in full_mot_batch]
-
-        return full_mot
 
 
     def sample_from_distribution(self, distribution: Distribution, *,
@@ -335,46 +261,6 @@ class TEACH(BaseModel):
         return latent_vector, distribution
 
     def allsplit_step(self, split: str, batch, batch_idx):
-
-        # Encode the text/decode to a motion
-        # length
-        # datastruct
-        # text => concatenatation of texts (commas)
-        #
-
-        # sequences of lengths (M1, T, M2)
-        # is_transition_included = True/False
-
-        # datastruct
-        # text => [t1, t2]
-
-        # first_frames = batch["datastruct"].features[:, 0, :]
-
-        # [M1, M2]
-        # => M2 | M1 => optimize
-        #  -> one case  prev_data = z1_t
-        #               prev_data = H_F1 / H_hat
-        # => M1  => optimize
-        #
-        # act1 / act2
-        #
-        # len(batch["text"]) == 2
-        # batch["text"][0] => first texts (in each batch)
-        #
-        # batch["text"]
-        # -> [act1, act2]
-        #
-        #
-        #
-        # len(batch["lengths"]) == 2
-        # batch["lengths"][1] should be either lengths of M2 or T+M2
-        # batch["transition_lenght"] = 0 or the value
-        #
-        #
-
-        # self.rots2rfeats = rots2rfeats
-        # self.rots2joints = rots2joints
-        # self.joints2jfeats = joints2jfeats
 
         # Prepare the generated motion features
         length_0, length_1 = batch["length_0"], batch["length_1"]
@@ -506,110 +392,5 @@ class TEACH(BaseModel):
                                             latent_vector_1_T,
                                             latent_vector_0_M,
                                             latent_vector_1_M)
-
-        # loss M1 / M2, eval M1 / M2      -> current
-        # loss M1+trans+M2, eval M1 / M2
-        # loss M1 / M2, eval M1+trans+M2
-        # loss M1+trans+M2, eval M1+trans+M2
-
-        #     # Compute the metrics
-        #     # breakpoint()
-        #     # output_features_1_T_lst[0]  -> F, feats -> F, xyz
-        # if split == "val":# or batch_idx == 0:
-        #     self.transforms.rots2rfeats.to(latent_vector_0_T.device)
-        #     self.transforms.rots2joints.to(latent_vector_0_T.device)
-
-        #     if not self.hparams.losses.loss_on_transition:
-        #         joints_0 = [self.transforms.rots2joints(self.transforms.rots2rfeats.inverse(x.detach())) for x in output_features_0_T_lst]
-        #         joints_1 = [self.transforms.rots2joints(self.transforms.rots2rfeats.inverse(x.detach())) for x in output_features_1_T_lst]
-        #         ref_joints_0 = [self.transforms.rots2joints(self.transforms.rots2rfeats.inverse(x.detach())) for x in input_motion_feats_0_lst]
-        #         ref_joints_1 = [self.transforms.rots2joints(self.transforms.rots2rfeats.inverse(x.detach())) for x in input_motion_feats_1_lst]
-
-        #         self.metrics_0.update(joints_0.detach(), ref_joints_0.detach(), length_0.detach())
-        #         self.metrics_1.update(joints_1.detach(), ref_joints_1.detach(), length_1.detach())
-
-        #     else:
-        #         # if self.motiondecoder.hparams.prev_data_mode == "hist_frame_outpast":
-        #         #     # remove the hframes
-        #         #     # M0 / M1[hframes:]
-        #         #     breakpoint()
-        #         #     joints_output = [self.transforms.rots2joints(self.transforms.rots2rfeats.inverse(torch.cat((x, y[hframes:]))))
-        #         #                      for x, y in zip(output_features_0_T_lst, output_features_1_T_with_transition_lst)]
-        #         # else:
-        #         # Evalute on all the joints (concatenation)
-        #         joints_output = [self.transforms.rots2joints(self.transforms.rots2rfeats.inverse(torch.cat((x.detach(), y.detach()))))
-        #                             for x, y in zip(output_features_0_T_lst, output_features_1_T_with_transition_lst)]
-
-        #         joints_input = [self.transforms.rots2joints(self.transforms.rots2rfeats.inverse(torch.cat((x.detach(), y.detach()))))
-        #                         for x, y in zip(input_motion_feats_0_lst, input_motion_feats_1_with_transition_lst)]
-
-        #         self.metrics.update(joints_output, joints_input, total_length)
-
-        # render_list_train = ['1574-1', '7286-0', '6001-0', '4224-2', '3415-0', '2634-0', '2424-1', '4550-0']
-        # render_list_val = ['2307-1', '6078-0', '5210-0', '12255-0', '11346-2', '11671-1', '443-8', '3290-3', '2014-0', '973-12']
-        # breakpoint()
-        # # if batch['keyid']
-        # # self.store_examples[] = joints_input
-        # keys_val = list(set(batch['keyid']) & set(render_list_val))
-        # keys_train = list(set(batch['keyid']) & set(render_list_train))
-
-        # if batch_idx == 0:
-        #     nvids = self.hparams.nvids_to_save
-        #     if nvids is not None and nvids != 0:
-        #         del self.store_examples[split]
-        #         # lengths = batch["length"][:nvids]
-        #         # length_0, length_1 = batch["length_0"], batch["length_1"]
-        #         # length_transition = batch["length_transition"]
-        #         # length_1_with_transition = batch["length_1_with_transition"]
-
-        #         def prepare_pos(x, lens):
-        #             x = x.detach().joints[:nvids]
-        #             x = x.cpu().numpy()
-        #             return remove_padding(x, lens)
-        #         def prepare_rots(x, lens):
-        #             x = x.detach().rots.rots[:nvids]
-        #             x = x.cpu().numpy()
-        #             return remove_padding(x, lens)
-        #         def prepare_trans(x, lens):
-        #             x = x.detach().rots.trans[:nvids]
-        #             x = x.cpu().numpy()
-        #             return remove_padding(x, lens)
-        #         texts = list(zip(batch['text_0'], batch['text_1']))
-        #         texts = [', '.join(t_tup) for t_tup in texts]
-
-        #         self.store_examples[split] = {
-        #             "text": texts[:nvids],
-        #             "ref": joints_input[:nvids],
-        #             "from_text": joints_output[:nvids],
-        #             # "from_motion": prepare_pos(datastruct_from_motion),
-
-        #             # get SMPL features for viz
-        #             # "from_text_rots": prepare_rots(datastruct_from_text),
-        #             # "from_text_trans": prepare_trans(datastruct_from_text),
-        #             # "from_motion_rots": prepare_rots(datastruct_from_motion),
-        #             # "from_motion_trans": prepare_trans(datastruct_from_motion),
-
-        #             # get SMPL groundtruth for viz
-        #             # "ref_rots": prepare_rots(datastruct_ref),
-        #             # "ref_trans": prepare_trans(datastruct_ref)
-        #         }
-
-        # if batch_idx == 0:
-        #     nvids = self.hparams.nvids_to_save
-        #     if nvids is not None and nvids != 0:
-        #         del self.store_examples[split]
-        #         lengths = batch["length"][:nvids]
-
-        #         def prepare(x):
-        #             x = x.detach().joints[:nvids]
-        #             x = x.cpu().numpy()
-        #             return remove_padding(x, lengths)
-
-        #         self.store_examples[split] = {
-        #             "text": batch["text"][:nvids],
-        #             "ref": prepare(pose_data_ref),
-        #             "from_text": prepare(pose_data_from_text),
-        #             "from_motion": prepare(pose_data_from_motion)
-        #         }
 
         return loss

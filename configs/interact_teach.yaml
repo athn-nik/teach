@@ -22,6 +22,9 @@ samples: 1
 logger_level: INFO
 slerp_ws: 8
 
+# joints / vertices / smpl
+repr_type: 'smpl'
+
 # Composing nested config with default
 defaults:
   - data: null
