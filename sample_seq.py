@@ -27,7 +27,6 @@ from teach.render.mesh_viz import visualize_meshes
 from teach.render.video import save_video_samples, stack_vids
 import torch
 from teach.utils.file_io import read_json
-labels = read_json('deps/inference/labels.json')
 
 logger = logging.getLogger(__name__)
 
