@@ -100,7 +100,7 @@ def interact(newcfg: DictConfig) -> None:
                 np.save(f'{str(outd)}_sample-{index}.npy',
                         {'motion': motion.numpy(), 'text': texts, 'lengths': lengths} )
 
-            vid_ = visualize_meshes(motion.numpy())
+            vid_ = visualize_meshes(motion)
             save_video_samples(vid_, f'{str(outd)}_sample-{index}.mp4', texts, fps=30)
 
 
