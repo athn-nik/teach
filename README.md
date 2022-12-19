@@ -81,6 +81,19 @@ You can do something equivalent with `conda` as well.
 
 We have prepared a nice demo code to run TEACH on arbitrary videos. 
 First, you need download the required data(i.e our trained model from our [website](https://teach.is.tue.mpg.de)). 
+The `path/to/experiment` directory should look like:
+
+```
+experiment
+│   
+└───.hydra
+│   | config.yaml
+|   | overrides.yaml
+|   | hydra.yaml
+|
+└───checkpoints
+    │   last.ckpt
+```
 
 Then, running the demo is as simple as:
 
