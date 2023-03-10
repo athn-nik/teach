@@ -75,12 +75,12 @@ def visualize_meshes(vertices, pcd=None, multi_col=None, text="",
     if use_hydra_path:
         with open(os.devnull, "w") as f, contextlib.redirect_stdout(f):
             smpl = get_body_model(path=f'{get_original_cwd()}/data/smpl_models',
-                                model_type='smpl', gender='neutral',
+                                model_type='smpl', gender='male',
                                 batch_size=1, device='cpu')
     else:
         with open(os.devnull, "w") as f, contextlib.redirect_stdout(f):
             smpl = get_body_model(path=f'data/smpl_models',
-                                model_type='smpl', gender='neutral',
+                                model_type='smpl', gender='male',
                                 batch_size=1, device='cpu')
     minx, miny, _ = mesh_rec.min(axis=(0, 1))
     maxx, maxy, _ = mesh_rec.max(axis=(0, 1))
