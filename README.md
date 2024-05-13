@@ -218,3 +218,7 @@ This code repository was implemented mainly by [Nikos Athanasiou](https://is.mpg
 Give a ⭐  if you like.
 
 For commercial licensing (and all related questions for business applications), please contact ps-licensing@tue.mpg.de.
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=EricGuo5513/HumanML3D&type=Date)](https://star-history.com/#EricGuo5513/HumanML3D&Date)
