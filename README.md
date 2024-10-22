@@ -105,6 +105,8 @@ python interact_teach.py folder=/path/to/experiment output=/path/to/yourfname te
 
 ## Data
 
+### ‼️⚠️ You can directly download the data from [this link](https://drive.google.com/drive/folders/1gKwLYP8TrbyY1YjsKz1A04s-rCwM9CfX?usp=sharing) and use them!
+
 Download the data from [AMASS website](https://amass.is.tue.mpg.de). Then, run this command to extract the amass sequences that are annotated in babel:
 
 ```shell
